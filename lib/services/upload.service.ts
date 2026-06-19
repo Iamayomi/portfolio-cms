@@ -1,6 +1,6 @@
 import { toast } from "sonner";
 
-import { uploadToCloudinary } from "../actions/s3.actions";
+import { uploadToCloudinary } from "../actions/cloudinary.actions";
 import { extractErrorMessage } from "../utils";
 
 const extractFile = (source: TFile) => {
