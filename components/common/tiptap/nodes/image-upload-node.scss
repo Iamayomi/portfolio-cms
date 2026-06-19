@@ -1,0 +1,195 @@
+.tiptap-image-upload {
+  margin: 2rem 0;
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .tiptap-image-upload-drag-area {
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border: 1.5px dashed color-mix(in srgb, var(--tomato) 70%, transparent);
+    border-radius: 1rem;
+    padding: 3rem 1.5rem;
+    text-align: center;
+    transition: border-color 160ms ease, background 160ms ease;
+
+    &:hover,
+    &.drag-active,
+    &.drag-over {
+      border-color: var(--tomato);
+      background: color-mix(in srgb, var(--honey) 12%, transparent);
+    }
+  }
+
+  .tiptap-image-upload-dropzone {
+    position: relative;
+    display: inline-flex;
+    height: 3.75rem;
+    width: 3.125rem;
+    align-items: flex-start;
+    justify-content: center;
+    color: color-mix(in srgb, var(--ink) 24%, transparent);
+    user-select: none;
+  }
+
+  .tiptap-image-upload-dropzone-rect-primary {
+    position: absolute;
+    color: color-mix(in srgb, var(--ink) 16%, transparent);
+  }
+
+  .tiptap-image-upload-dropzone-rect-secondary {
+    position: absolute;
+    top: 0;
+    right: 0.25rem;
+    color: color-mix(in srgb, var(--ink) 30%, transparent);
+  }
+
+  .tiptap-image-upload-icon-container {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    height: 1.75rem;
+    width: 1.75rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--tomato);
+    color: var(--paper);
+  }
+
+  .tiptap-image-upload-icon {
+    height: 0.875rem;
+    width: 0.875rem;
+    color: currentColor;
+  }
+
+  .tiptap-image-upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    user-select: none;
+  }
+
+  .tiptap-image-upload-text {
+    color: var(--ink);
+    font-size: 0.95rem;
+    font-weight: 800;
+
+    em {
+      font-style: normal;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+  }
+
+  .tiptap-image-upload-subtext {
+    color: color-mix(in srgb, var(--ink) 55%, transparent);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .tiptap-image-upload-previews {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .tiptap-image-upload-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    padding: 0.5rem 0;
+    color: color-mix(in srgb, var(--ink) 65%, transparent);
+    font-size: 0.875rem;
+    font-weight: 800;
+  }
+
+  .tiptap-image-upload-preview {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--paper) 88%, var(--ink));
+  }
+
+  .tiptap-image-upload-progress {
+    position: absolute;
+    inset: 0;
+    width: 0;
+    background: color-mix(in srgb, var(--tomato) 25%, transparent);
+    transition: width 300ms ease-out;
+  }
+
+  .tiptap-image-upload-preview-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .tiptap-image-upload-file-info {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .tiptap-image-upload-file-icon {
+    display: flex;
+    height: 2.3rem;
+    width: 2.3rem;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--tomato);
+    color: var(--paper);
+  }
+
+  .tiptap-image-upload-details {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+  }
+
+  .tiptap-image-upload-actions {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .tiptap-image-upload-progress-text {
+    color: var(--tomato);
+    font-size: 0.78rem;
+    font-weight: 900;
+  }
+}
+
+.tiptap.ProseMirror.ProseMirror-focused {
+  .ProseMirror-selectednode .tiptap-image-upload-drag-area {
+    border-color: var(--tomato);
+  }
+}
+
+@media (max-width: 480px) {
+  .tiptap-image-upload {
+    .tiptap-image-upload-drag-area {
+      padding: 2rem 1rem;
+    }
+
+    .tiptap-image-upload-preview-content,
+    .tiptap-image-upload-header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+}

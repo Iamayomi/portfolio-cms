@@ -1,0 +1,36 @@
+"use server";
+
+import { v2 as cloudinary } from "cloudinary";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+export async function uploadToCloudinary(
+  file: File,
+  folder: CloudinaryFolders = "documents"
+) {
+  const buffer = Buffer.from(await file.arrayBuffer());
+
+  return new Promise<{ url: string; public_id: string }>((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      {
+        folder,
+        resource_type: "auto",
+        public_id: `${folder}/${Date.now()}_${file.name}`,
+      },
+      (error, result) => {
+        if (error) return reject(error);
+        resolve({ url: result!.secure_url, public_id: result!.public_id });
+      }
+    );
+    stream.end(buffer);
+  });
+}
+
+export async function deleteCloudinaryAsset(publicId: string) {
+  if (!publicId) return;
+  await cloudinary.uploader.destroy(publicId);
+}

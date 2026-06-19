@@ -1,0 +1,105 @@
+"use client";
+
+import { forwardRef, useCallback } from "react";
+// --- Hooks ---
+import { useTiptapEditor } from "@/lib/hooks/use-tiptap-editor";
+
+// --- Tiptap UI ---
+import type { UseImageUploadConfig } from "../image-upload-button";
+import { useImageUpload } from "../image-upload-button";
+
+import { Button } from "@/components/ui/button";
+
+type IconProps = React.SVGProps<SVGSVGElement>;
+type IconComponent = ({ className, ...props }: IconProps) => React.ReactElement;
+
+export interface ImageUploadButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    UseImageUploadConfig {
+  /**
+   * Optional text to display alongside the icon.
+   */
+  text?: string;
+  /**
+   * Optional show shortcut keys in the button.
+   * @default false
+   */
+  showShortcut?: boolean;
+  /**
+   * Optional custom icon component to render instead of the default.
+   */
+  icon?: React.MemoExoticComponent<IconComponent> | React.FC<IconProps>;
+}
+
+/**
+ * Button component for uploading/inserting images in a Tiptap editor.
+ *
+ * For custom button implementations, use the `useImage` hook instead.
+ */
+export const ImageUploadButton = forwardRef<
+  HTMLButtonElement,
+  ImageUploadButtonProps
+>(
+  (
+    {
+      editor: providedEditor,
+      text,
+      hideWhenUnavailable = false,
+      onInserted,
+      onClick,
+      icon: CustomIcon,
+      children,
+      ...buttonProps
+    },
+    ref
+  ) => {
+    const { editor } = useTiptapEditor(providedEditor);
+    const { isVisible, canInsert, handleImage, label, isActive, Icon } =
+      useImageUpload({
+        editor,
+        hideWhenUnavailable,
+        onInserted,
+      });
+
+    const handleClick = useCallback(
+      (event: React.MouseEvent<HTMLButtonElement>) => {
+        onClick?.(event);
+        if (event.defaultPrevented) return;
+        handleImage();
+      },
+      [handleImage, onClick]
+    );
+
+    if (!isVisible) {
+      return null;
+    }
+
+    const RenderIcon = CustomIcon ?? Icon;
+
+    return (
+      <Button
+        type="button"
+        variant="ghost"
+        data-active-state={isActive ? "on" : "off"}
+        role="button"
+        tabIndex={-1}
+        disabled={!canInsert}
+        data-disabled={!canInsert}
+        aria-label={label}
+        aria-pressed={isActive}
+        onClick={handleClick}
+        {...buttonProps}
+        ref={ref}
+      >
+        {children ?? (
+          <>
+            <RenderIcon className="tiptap-button-icon" />
+            {text && <span className="tiptap-button-text">{text}</span>}
+          </>
+        )}
+      </Button>
+    );
+  }
+);
+
+ImageUploadButton.displayName = "ImageUploadButton";

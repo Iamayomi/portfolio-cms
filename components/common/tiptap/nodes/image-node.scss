@@ -1,0 +1,42 @@
+.tiptap-image-figure {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin: 1.5rem 0;
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+    border-radius: 0;
+  }
+}
+
+.tiptap-image-caption {
+  width: 100%;
+  min-height: 2.25rem;
+  resize: vertical;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  background: transparent;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+  font-size: 0.88rem;
+  font-style: italic;
+  line-height: 1.5;
+  outline: none;
+  padding: 0.25rem 0;
+  text-align: center;
+
+  &::placeholder {
+    color: color-mix(in srgb, var(--ink) 40%, transparent);
+  }
+
+  &:focus {
+    border-color: var(--tomato);
+  }
+}
+
+.ProseMirror-selectednode.tiptap-image-figure img {
+  outline: 2px solid var(--tomato);
+  outline-offset: 2px;
+}
