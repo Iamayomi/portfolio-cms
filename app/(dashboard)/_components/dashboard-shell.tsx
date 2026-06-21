@@ -3,6 +3,7 @@
 import type { User } from "better-auth";
 import type { LucideIcon } from "lucide-react";
 import {
+  BookMarked,
   BookOpen,
   BriefcaseBusiness,
   Clock3,
@@ -17,6 +18,7 @@ import {
   Menu,
   NotebookText,
   PanelRight,
+  PenLine,
   Settings,
   X,
 } from "lucide-react";
@@ -93,6 +95,24 @@ const navItems: NavItem[] = [
       { label: "Hero", href: "/notes/hero", icon: LayoutTemplate },
       { kind: "separator", label: "Manage notes" },
       { label: "Notes", href: "/notes/manage", icon: NotebookText },
+    ],
+  },
+  {
+    label: "Guestbook",
+    href: "/guestbook",
+    icon: PenLine,
+    children: [
+      { kind: "separator", label: "Manage entries" },
+      { label: "Entries", href: "/guestbook/manage", icon: PenLine },
+    ],
+  },
+  {
+    label: "Bookshelf",
+    href: "/bookshelf",
+    icon: BookMarked,
+    children: [
+      { kind: "separator", label: "Manage books" },
+      { label: "Books", href: "/bookshelf/manage", icon: BookOpen },
     ],
   },
   { label: "Contact", href: "/contact", icon: Mail },

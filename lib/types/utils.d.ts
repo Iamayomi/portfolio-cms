@@ -1,4 +1,4 @@
-type CloudinaryFolders = "notes" | "documents" | "media";
+type CloudinaryFolders = "notes" | "documents" | "media" | "guestbook";
 
 type UploadType = "image" | "document";
 

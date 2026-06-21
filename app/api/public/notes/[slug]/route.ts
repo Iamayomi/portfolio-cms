@@ -86,6 +86,16 @@ export async function GET(
       noteRepository.findRelated(note, 4),
     ]);
 
+    let seriesEntries: { slug: string; title: string; order: number }[] = [];
+    if (note.series) {
+      const allInSeries = await noteRepository.findBySeries(note.series);
+      seriesEntries = allInSeries.map((n) => ({
+        slug: n.slug,
+        title: n.title,
+        order: n.seriesOrder || 0,
+      }));
+    }
+
     return NextResponse.json(
       {
         success: true,
@@ -104,6 +114,9 @@ export async function GET(
           readTime: note.readTime || "1 min read",
           views: note.views || 0,
           author: note.author || { name: "Somto", image: null },
+          series: note.series || "",
+          seriesOrder: note.seriesOrder || 0,
+          seriesEntries,
           publishedAt: note.publishedAt?.toISOString() ?? null,
           updatedAt: (note.updatedAt ?? note.createdAt).toISOString(),
           comments: buildCommentTree(comments, visitorId),

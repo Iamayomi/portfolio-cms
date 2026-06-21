@@ -38,6 +38,8 @@ export const NoteSchema = z.object({
   bannerImage: optionalText,
   bannerCaption: optionalText,
   tags: z.array(z.string().trim().min(1)).default(["Engineering"]),
+  series: optionalText,
+  seriesOrder: z.number().optional(),
 });
 
 export const NoteCommentSchema = z.object({

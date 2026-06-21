@@ -5,8 +5,8 @@ class MailService {
   private sender: string;
   private resend?: Resend;
 
-  constructor(private appName: string = "CMS - Talktosomto") {
-    this.sender = `${this.appName} <no-reply@talktosomto.xyz>`;
+  constructor(private appName: string = "CMS - Talktoayo") {
+    this.sender = `${this.appName} <no-reply@talktoayo.xyz>`;
   }
 
   private getClient() {
@@ -45,8 +45,8 @@ class MailService {
       await this.sendMail({
         subject: "CMS Access Granted",
         to,
-        text: `You've been granted access to the Talktosomto CMS Studio`,
-        html: `You've been granted access to the Talktosomto.xyz CMS Studio. Login <a href="${BASE_URL}">here</a>.`,
+        text: `You've been granted access to the Talktoayo CMS Studio`,
+        html: `You've been granted access to the Talktoayo.xyz CMS Studio. Login <a href="${BASE_URL}">here</a>.`,
       });
     } catch (error) {
       console.error("[error_sending_access_granted_email]: ", error);
