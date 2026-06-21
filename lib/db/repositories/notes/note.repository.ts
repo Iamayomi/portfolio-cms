@@ -108,6 +108,14 @@ export const noteRepository = {
       .toArray();
   },
 
+  findBySeries(seriesName: string) {
+    return repository
+      .collection()
+      .find({ published: true, series: seriesName })
+      .sort({ seriesOrder: 1, publishedAt: -1 })
+      .toArray();
+  },
+
   async recordRead(slug: string, visitorId: string) {
     const note = await repository.findOne({ slug, published: true });
     if (!note) return null;

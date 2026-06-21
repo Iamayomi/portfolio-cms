@@ -42,6 +42,8 @@ const emptyNote: TNoteSchema = {
   bannerImage: "",
   bannerCaption: "",
   tags: [],
+  series: "",
+  seriesOrder: undefined,
 };
 
 const toPayload = (note?: NoteFormData | null): TNoteSchema =>
@@ -56,6 +58,8 @@ const toPayload = (note?: NoteFormData | null): TNoteSchema =>
         bannerImage: note.bannerImage || "",
         bannerCaption: note.bannerCaption || "",
         tags: note.tags || [],
+        series: note.series || "",
+        seriesOrder: note.seriesOrder,
       }
     : emptyNote;
 
@@ -245,6 +249,31 @@ export function NoteForm({ mode, initialData }: NoteFormProps) {
             onAddTag={onAddTag}
             onRemoveTag={onRemoveTag}
             disabled={isPending}
+          />
+        </ModuleCard>
+
+        <ModuleCard className="space-y-4">
+          <p className="font-mono text-xs font-black uppercase tracking-[0.22em] text-ink/50">
+            Series
+          </p>
+          <TextField
+            label="Series name"
+            defaultValue={formData.series}
+            hint="Group this note into a series. Notes with the same series name appear together."
+            onChange={(series) =>
+              setFormData((prev) => ({ ...prev, series }))
+            }
+          />
+          <TextField
+            label="Series order"
+            defaultValue={formData.seriesOrder?.toString() || ""}
+            hint="Order within the series (1, 2, 3...)."
+            onChange={(seriesOrder) =>
+              setFormData((prev) => ({
+                ...prev,
+                seriesOrder: seriesOrder ? Number(seriesOrder) : undefined,
+              }))
+            }
           />
         </ModuleCard>
       </aside>

@@ -23,6 +23,8 @@ export interface NoteContent extends CmsDocumentBase {
   readTime: string;
   views?: number;
   readBy?: string[];
+  series?: string;
+  seriesOrder?: number;
   publishedAt?: Date | null;
   author?: {
     name: string;
